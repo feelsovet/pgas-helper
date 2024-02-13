@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Помощник по ПГАС</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+<script src="const.js"></script>
+</head>
+<body>
+    <h1>Конференции</h1>
+    <div>
+        <select id="sel1">
+            <option selected="">Университетская</option>
+            <option>Всероссийская</option>
+            <option>Международная (с проведением в России)</option>
+            <option>Международная (с проведением за рубежом)</option>
+        </select>
+        <label for="c1"><input type="checkbox" id="c1">Студенческая / молодёжная</label>
+        <label for="c2"><input type="checkbox" id="c2">В соавторстве</label>
+        <label for="c3"><input type="checkbox" id="c3">С платой за участие (не считая оргвзнос)</label>
+    </div>
+    <div>
+        <table class="center">
+            <tr>
+                <th>Тезисы</th>
+                <th>Доклад</th>
+                <th>Грамота</th>
+            </tr>
+            <tr>
+                <th id="v1"></th>
+                <th id="v2"></th>
+                <th id="v3"></th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function calculatePoints() {
+            var level = document.getElementById('sel1').value;
+            var points = basePoints[level].slice();
+            if (document.getElementById('c1').checked) {
+                for (var i = 0; i < points.length; i++) {
+                    points[i] *= 0.8;
+                }
+            }
+            if (document.getElementById('c2').checked) {
+                for (var i = 0; i < points.length; i++) {
+                    points[i] *= 0.8;
+                }
+            }
+            if (document.getElementById('c3').checked) {
+                for (var i = 0; i < points.length; i++) {
+                    points[i] *= 0.4;
+                }
+            }
+            for (var i = 1; i <= 3; i++) {
+                document.getElementById(`v${i}`).innerText = parseFloat(points[i-1]).toPrecision(3);
+            }
+        }
+        
+        var idsToListen = ["sel1", "c1", "c2", "c3"];
+        for (var i = 0; i < idsToListen.length; i++) {
+            let element = document.getElementById(idsToListen[i]);
+            element.addEventListener("change", function() {
+                calculatePoints();
+            });
+        };
+
+        calculatePoints();
+    </script>
+</body>
+</html>
