@@ -46,7 +46,70 @@
         </table>
     </div>
 
+    <h3>Список конференций</h3>
+    <h4 style="color: lightgray">Каждое название кликабельно. Не забывайте включать нажимать соответствующую галочку, когда работа выполнена в соавторстве в соавторстве.</h4>
+
+    <table>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=int&student">«Ломоносов»</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus">«Малые языки в большой лингвистике»</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus">«Типология морфосинтаксических параметров»</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus&student">Конференция по типологии и грамматике для молодых исследователей</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">Студенческая конференция Института лингвистики РГГУ (СКИЛ РГГУ)</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=for">Workshop on Modality in undescribed languages</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=for&student">Workshop on Syntax, Semantics and Phonology, WoSSP</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=for">European Conference on Formal Description of Slavic Languages, FDSL </a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">Экспериментальные исследования языка</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=for">Reported Discourse within Grammar: Cross-Linguistic Insights</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus">Современная православная гимнография</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus&student">Древняя русь глазами молодых исследователей</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">Конференция молодых исследователей «Текст – комментарий – интерпретация»</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=uni">Елка у Иванова</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">«В поисках смыслов...»</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus">Русская литература ХХ-ХХI веков как единый процесс</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus">Поэтика текста</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus&student">Текстология и историко-литературный процесс</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">Актуальные проблемы филологии</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus">Современные проблемы филологии и методики преподавания языков: вопросы теории и практики</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus">Национальные коды в языке и литературе</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus&student">Молодежь XXI века: образование, наука, инновации</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">Пространство и время в русской литературе и философии</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus">Русская классическая и неклассическая литература: текст, контекст, рецепция</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=rus&student">Язык. Культура. Личность</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=rus">Наследие К.Д. Ушинского и современное образование</a></th></tr>
+        <tr><th style="display: inline-block; background-color: lightcyan"><a href="calculator.html?level=uni&student">Звегинцевские чтения</a></th></tr>
+        <tr><th style="display: inline-block; background-color: white"><a href="calculator.html?level=uni&student">Конференция, посвящённая юбилею Л. Тика</a></th></tr>
+    </table>
+
     <script>
+
+        function loadParams() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            const levelOptions = {
+                "uni": 0,
+                "rus": 1,
+                "int": 2,
+                "for": 3,
+            };
+
+            if (urlParams.has('level')){
+                let index = levelOptions[urlParams.get('level')];
+                let value = document.getElementById('sel1').children[index].text;
+                document.getElementById('sel1').value = value;
+            }
+
+            if (urlParams.has('student')){
+                document.getElementById('c1').checked = true;
+            }
+            if (urlParams.has('coauthored')){
+                document.getElementById('c2').checked = true;
+            }
+            if (urlParams.has('paid')){
+                document.getElementById('c3').checked = true;
+            }
+        }
+
         function calculatePoints() {
             var level = document.getElementById('sel1').value;
             var points = basePoints[level].slice();
@@ -78,6 +141,7 @@
             });
         };
 
+        loadParams();
         calculatePoints();
     </script>
 </body>
